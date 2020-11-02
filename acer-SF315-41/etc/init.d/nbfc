@@ -1,0 +1,18 @@
+#!/sbin/openrc-run
+# Custom openrc unit (Gentoo)
+
+depend() {
+	need localmount
+	after modules-load
+}
+
+start() {
+	/opt/nbfc/nbfcservice.sh start >/dev/null 2>&1
+	eend $?
+}
+
+stop() {
+	# Nothing to stop
+    /opt/nbfc/nbfcservice.sh stop
+	eend $?
+}

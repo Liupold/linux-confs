@@ -1,0 +1,20 @@
+#!/sbin/openrc-run
+# Custom openrc unit (Gentoo)
+
+depend() {
+	need localmount
+	after modules-load
+}
+
+command=/home/rohnch/.local/bin/ryzenadj
+
+start() {
+	${command} --stapm-limit=22000 --fast-limit=22000 --slow-limit=22000 --tctl-temp=90 start >/dev/null 2>&1
+	eend $?
+}
+
+stop() {
+	# Nothing to stop
+	${command} --stapm-limit=15000 --fast-limit=15000 --slow-limit=15000 --tctl-temp=75 start >/dev/null 2>&1
+	eend $?
+}
